@@ -1,0 +1,32 @@
+﻿<UserControl x:Class="Read.TBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Read"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel>
+        <TextBox DockPanel.Dock="Top" Padding="1.5" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" ToolTip="{Binding WaterMarkText,ElementName=control}" Width="{Binding ActualWidth,ElementName=control}" Height="{Binding ActualHeight,ElementName=control}" Name="txtFilter" Text="{Binding Path=Text,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged, ElementName=control}" >
+            <TextBox.Resources>
+                <VisualBrush x:Key="HelpBrush" TileMode="None" Opacity="0.5" Stretch="None" AlignmentX="Left">
+                    <VisualBrush.Visual>
+                        <TextBlock Width="{Binding ActualWidth,ElementName=control}"   VerticalAlignment="Center"  FontStyle="Italic"  FontSize="12" Text="{Binding WaterMarkText,ElementName=control}"/>
+                    </VisualBrush.Visual>
+                </VisualBrush>
+            </TextBox.Resources>
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Style.Triggers>
+                        <Trigger Property="Text" Value="{x:Null}">
+                            <Setter Property="Background" Value="{StaticResource HelpBrush}"/>
+                        </Trigger>
+                        <Trigger Property="Text" Value="">
+                            <Setter Property="Background" Value="{StaticResource HelpBrush}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+    </DockPanel>
+</UserControl>

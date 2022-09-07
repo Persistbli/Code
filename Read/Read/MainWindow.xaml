@@ -1,0 +1,36 @@
+﻿<Window x:Class="Read.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Read"
+        mc:Ignorable="d"
+        WindowStyle="None" ResizeMode="CanMinimize"
+        
+        Visibility="Visible"   Background="#00FFFFFF" 
+        Title="MainWindow" Width="800" Height="400" Loaded="Windows_loaded">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome GlassFrameThickness="-1" />
+    </WindowChrome.WindowChrome>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer Name="scrollview" Grid.Column="0" Grid.ColumnSpan="3" Style="{StaticResource for_scrollviewer}">
+            <TextBox Name="TBContent"  Background="Transparent" BorderBrush="Transparent" Template="{StaticResource TextBoxTemplate}" TextChanged="TBContent_Changed"
+                     AcceptsReturn="True"  VerticalScrollBarVisibility="Auto" FontSize="20" Foreground="White" IsReadOnly="True"
+                     MaxWidth="800" TextWrapping="Wrap" Focusable="True" MouseRightButtonDown="TBContent_MouseRightDown" PreviewMouseRightButtonDown="TBContent_PreviewMouseRightDown"></TextBox>
+        </ScrollViewer>
+        <Button Name="BtnUpPage" BorderBrush="Transparent" Grid.Row="1" Grid.Column="0" Height="50" Width="80" Background="Transparent" FontSize="20" Foreground="White">上一章</Button>
+        <Button Name="BtnHome" BorderBrush="Transparent" Grid.Row="1" Grid.Column="1" Height="50" Width="80" Background="Transparent" FontSize="20" Foreground="White">首页</Button>
+        <Button Name="BtnNextpage" BorderBrush="Transparent" Grid.Row="1" Grid.Column="2" Height="50" Width="80" Background="Transparent" FontSize="20" Foreground="White" Click="BtnNextPage_Clickes">下一章</Button>
+    </Grid>
+</Window>
