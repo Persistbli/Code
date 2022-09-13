@@ -28,7 +28,8 @@ namespace Read
             InitializeComponent();
         }
         public string BookUrl { get; set; } = "https://m.xbiquge.so/book/9109/";
-        public List<string> html = new List<string>();
+        public List<string> NextHtml = new List<string>();
+        public List<string> preHtml = new List<string>();
         public string NextPageUrl
         {
             get
@@ -38,11 +39,13 @@ namespace Read
             set
             {
                 string data = ReadHelper.getDataFromUrl(value);
+                HIstory = value;
                 string content = ReadHelper.GetMainContent(data);
                 Application.Current.Dispatcher.Invoke(delegate () { TBContent.Text = content; Data = data; });
             }
         }
         public string stringContainhtml { get; set; }
+        public string HIstory { get; set; }
         public bool isNextPage { get; set; } = false;
         public string Data
         {
@@ -56,14 +59,14 @@ namespace Read
                 string tagName = "a";
                 tags = ReadHelper.GetTags(value, tagName);
                 IEnumerable<string> next = tags.Where((tag) => { return tag.Contains("pb_next"); }); 
-                IEnumerable<string> pre = tags.Where((tag) => { return tag.Contains("pb_next"); });
+                IEnumerable<string> pre = tags.Where((tag) => { return tag.Contains("pb_prev"); });
                 foreach (var VARIABLE in next)
                 {
-                    html.Add(VARIABLE);
+                    NextHtml.Add(VARIABLE);
                 }
                 foreach (var VARIABLE in pre)
                 {
-                    html.Add(VARIABLE);
+                    preHtml.Add(VARIABLE);
                 }
             }
         }
@@ -73,11 +76,13 @@ namespace Read
             //Thread th = new Thread(GetWebContent);
             //th.IsBackground = true;
             //th.Start();
+            
             if (isNextPage)
             {
                 string data = ReadHelper.getDataFromUrl(NextPageUrl);
                 string content = ReadHelper.GetMainContent(data);
                 Application.Current.Dispatcher.Invoke(delegate () { TBContent.Text = content; Data = data; });
+                scrollview.ScrollToTop();
             }
             else
             {
@@ -86,7 +91,9 @@ namespace Read
                 string data = ReadHelper.getDataFromUrl(url);
                 string content = ReadHelper.GetMainContent(data);
                 Application.Current.Dispatcher.Invoke(delegate () { TBContent.Text = content; Data = data; });
+                scrollview.ScrollToTop();
             }
+            
         }
 
         private void GetWebContent()
@@ -119,7 +126,7 @@ namespace Read
 
         private void BtnNextPage_Clickes(object sender, RoutedEventArgs e)
         {
-            foreach (var str in html)
+            foreach (var str in NextHtml)
             {
                 string reg = @"<a[^>]*href=([""'])?(?<href>[^'""]+)\1[^>]*>";
                 MatchCollection matches = Regex.Matches(str, reg, RegexOptions.IgnoreCase);
@@ -140,6 +147,27 @@ namespace Read
         private void TBContent_PreviewMouseRightDown(object sender, MouseButtonEventArgs e)
         {
             scrollview.ScrollToTop();
+        }
+
+        private void BtnUpPage_Click(object sender, RoutedEventArgs e)
+        {
+            foreach (var str in preHtml)
+            {
+                string reg = @"<a[^>]*href=([""'])?(?<href>[^'""]+)\1[^>]*>";
+                MatchCollection matches = Regex.Matches(str, reg, RegexOptions.IgnoreCase);
+                foreach (Match item in matches)
+                {
+                    stringContainhtml = item.Groups[2].Value;
+                }
+            }
+            NextPageUrl = BookUrl + stringContainhtml;
+            isNextPage = true;
+        }
+
+        private void BtnHome_Click(object sender, RoutedEventArgs e)
+        {
+            NextPageUrl = "https://m.xbiquge.so/book/9109/6516857.html";
+            isNextPage = true;
         }
     }
 }

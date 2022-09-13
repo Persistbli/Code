@@ -29,8 +29,8 @@
                      AcceptsReturn="True"  VerticalScrollBarVisibility="Auto" FontSize="20" Foreground="White" IsReadOnly="True"
                      MaxWidth="800" TextWrapping="Wrap" Focusable="True" MouseRightButtonDown="TBContent_MouseRightDown" PreviewMouseRightButtonDown="TBContent_PreviewMouseRightDown"></TextBox>
         </ScrollViewer>
-        <Button Name="BtnUpPage" BorderBrush="Transparent" Grid.Row="1" Grid.Column="0" Height="50" Width="80" Background="Transparent" FontSize="20" Foreground="White">上一章</Button>
-        <Button Name="BtnHome" BorderBrush="Transparent" Grid.Row="1" Grid.Column="1" Height="50" Width="80" Background="Transparent" FontSize="20" Foreground="White">首页</Button>
+        <Button Name="BtnUpPage" BorderBrush="Transparent" Grid.Row="1" Grid.Column="0" Height="50" Width="80" Background="Transparent" FontSize="20" Foreground="White" Click="BtnUpPage_Click">上一章</Button>
+        <Button Name="BtnHome" BorderBrush="Transparent" Grid.Row="1" Grid.Column="1" Height="50" Width="80" Background="Transparent" FontSize="20" Foreground="White" Click="BtnHome_Click">首页</Button>
         <Button Name="BtnNextpage" BorderBrush="Transparent" Grid.Row="1" Grid.Column="2" Height="50" Width="80" Background="Transparent" FontSize="20" Foreground="White" Click="BtnNextPage_Clickes">下一章</Button>
     </Grid>
 </Window>
